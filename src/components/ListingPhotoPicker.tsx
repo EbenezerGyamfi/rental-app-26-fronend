@@ -7,7 +7,7 @@ type SelectedPhoto = {
   previewUrl: string;
 };
 
-export default function ListingPhotoPicker({ name = 'images' }: { name?: string }) {
+export default function ListingPhotoPicker({ name = 'images', onPhotoFilesChange }: { name?: string; onPhotoFilesChange?: (files: File[]) => void }) {
   const [photos, setPhotos] = useState<SelectedPhoto[]>([]);
   const previewUrls = useRef(new Set<string>());
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,21 +18,24 @@ export default function ListingPhotoPicker({ name = 'images' }: { name?: string 
   }, []);
 
   function handleFilesChange(event: ChangeEvent<HTMLInputElement>) {
+    const availableSlots = Math.max(0, 5 - photos.length);
     const newPhotos = Array.from(event.target.files ?? [])
       .filter((file) => file.type.startsWith('image/'))
+      .slice(0, availableSlots)
       .map((file) => {
         const previewUrl = URL.createObjectURL(file);
         previewUrls.current.add(previewUrl);
         return { file, previewUrl };
       });
 
+    const combined = [...photos, ...newPhotos].slice(0, 5);
     if (newPhotos.length) {
-      const combined = [...photos, ...newPhotos];
       setPhotos(combined);
-      const transfer = new DataTransfer();
-      combined.forEach(({ file }) => transfer.items.add(file));
-      event.target.files = transfer.files;
+      onPhotoFilesChange?.(combined.map(({ file }) => file));
     }
+    const transfer = new DataTransfer();
+    combined.forEach(({ file }) => transfer.items.add(file));
+    event.target.files = transfer.files;
   }
 
   function removePhoto(previewUrl: string) {
@@ -40,6 +43,7 @@ export default function ListingPhotoPicker({ name = 'images' }: { name?: string 
     previewUrls.current.delete(previewUrl);
     const remaining = photos.filter((photo) => photo.previewUrl !== previewUrl);
     setPhotos(remaining);
+    onPhotoFilesChange?.(remaining.map(({ file }) => file));
     const transfer = new DataTransfer();
     remaining.forEach(({ file }) => transfer.items.add(file));
     if (inputRef.current) inputRef.current.files = transfer.files;

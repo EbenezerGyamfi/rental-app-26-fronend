@@ -24,10 +24,11 @@ export default function SiteHeader() {
         <nav id="primary-navigation" className={open ? 'primary-nav is-open' : 'primary-nav'} aria-label="Main navigation" onClick={(event) => { if ((event.target as HTMLElement).closest('a')) setOpen(false); }}>
           <div className="nav-group"><Link href="/" className="nav-link">Home</Link><div className="nav-menu">{homeLinks.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</div></div>
           <div className="nav-group"><Link href="/list-layout-new" className="nav-link">Properties</Link><div className="nav-menu">
-            <Link href="/list-layout-new">Browse properties</Link><Link href="/grid">Grid view</Link><Link href="/half-map">Map search</Link><Link href="/single-property-1">Property details</Link><Link href="/compare-property">Compare properties</Link>
+            <Link href="/list-layout-new">Browse properties</Link><Link href="/grid">Grid view</Link><Link href="/half-map">Map search</Link><Link href="/compare-property">Compare properties</Link>
           </div></div>
           <div className="nav-group"><Link href="/agents" className="nav-link">Agents</Link><div className="nav-menu"><Link href="/agents">Find an agent</Link><Link href="/agencies">Agencies</Link><Link href="/agency-page">Agency profile</Link></div></div>
           <div className="nav-group"><Link href="/blog" className="nav-link">Journal</Link><div className="nav-menu"><Link href="/blog">Latest articles</Link><Link href="/about-us">About Resido</Link><Link href="/contact">Contact</Link></div></div>
+          <Link href="/dashboard" className="nav-link nav-dashboard-link">Dashboard</Link>
           <Link href="/login" className="nav-account">Sign in</Link>
           <Link href="/submit-property" className="button button-primary header-cta">List your property <span aria-hidden="true">＋</span></Link>
         </nav>

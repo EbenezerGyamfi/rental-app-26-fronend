@@ -1,3 +1,4 @@
+import { RentalStateProvider } from '@/src/components/RentalStateProvider';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import SiteFooter from '@/src/components/SiteFooter';
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <SiteHeader />
-        <main id="main-content">{children}</main>
+        <main id="main-content"><RentalStateProvider>{children}</RentalStateProvider></main>
         <SiteFooter />
         <BackToTop />
       </body>

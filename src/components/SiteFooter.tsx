@@ -13,7 +13,7 @@ export default function SiteFooter() {
         <div><h2>Resido</h2><Link href="/about-us">About us</Link><Link href="/blog">Journal</Link><Link href="/pricing">Pricing</Link><Link href="/contact">Contact</Link></div>
         <div><h2>Get in touch</h2><p>Have a question about a home or listing?</p><Link href="/contact" className="footer-contact">Talk to our team ↗</Link></div>
       </div>
-      <div className="footer-bottom"><span>© {new Date().getFullYear()} Resido. Sample property content.</span><span>Thoughtful places. Better living.</span></div>
+      <div className="footer-bottom"><span>© {new Date().getFullYear()} Resido.</span><span>Thoughtful places. Better living.</span></div>
     </footer>
   );
 }
