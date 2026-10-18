@@ -1,0 +1,12 @@
+import type { Metadata } from 'next';
+import { TemplatePage } from '@/src/components/PageViews';
+
+export const metadata: Metadata = { title: 'List Layout New 3 | Resido' };
+
+type Props = { searchParams: Promise<{ location?: string; intent?: string; type?: string; price?: string }> };
+
+export default async function Page({ searchParams }: Props) {
+  const query = await searchParams;
+  const initialStatus = query.intent === 'Buy' ? 'For Sale' : query.intent === 'Rent' ? 'For Rent' : 'Any status';
+  return <TemplatePage slug="list-layout-new-3" initialTerm={query.location ?? ''} initialStatus={initialStatus} initialType={query.type || 'Any type'} initialPrice={query.price || 'Any price'} />;
+}
