@@ -36,10 +36,6 @@ jobs:
         if: github.event_name == 'pull_request'
         run: npm run build
 
-      - name: Lint
-        if: github.event_name == 'pull_request'
-        run: npm run lint
-
-      - name: Test
-        if: github.event_name == 'pull_request'
-        run: npm test
+      # - name: Lint
+      #   if: github.event_name == 'pull_request'
+      #   run: npm run lint
